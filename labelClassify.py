@@ -45,12 +45,14 @@ class LABELROTULATOR(object):
 		data.loc[:,'Cluster'] = pd.Series(self.y_train, index=data.index)
 		grouped = data.groupby(['Cluster'])
 
+		n=0
 		for n_cluster, values in grouped:
 			for i in values.get_values().tolist():
-				if self.check(i, self.rotulos[n_cluster-1]):
+				if self.check(i, self.rotulos[n]):
 					newData.append(i)
 				else:
 					notData.append(i)
+			n=+1
 
 		cluster = [i[-1] for i in newData]
 		for i in newData: i.pop(-1)

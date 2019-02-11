@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt 
 from sklearn.decomposition import PCA
 
-chamadas = [("iris.csv", [3,3,3,3], 10),("vidros.csv",[4,4,4,4,4,4,4,4,4],15),("sementes.csv", [3,3,3,3,3,3,3], 5)]
+chamadas = [("vidros.csv",[4,4,4,4,4,4,4,4,4],10)]
 
 for i in chamadas:
 	bd = pd.read_csv(i[0],sep=',',parse_dates=True)
@@ -23,7 +23,8 @@ for i in chamadas:
 	results.to_csv('Resultado-'+str(i[0].split('.')[0])+'.csv', sep=',' )
 
 
+'''
 
+("iris.csv", [3,3,3,3], 10),("vidros.csv",[4,4,4,4,4,4,4,4,4],15),("sementes.csv", [3,3,3,3,3,3,3], 5)
 
-
-
+'''
