@@ -19,8 +19,12 @@ class classificador(object):
 				y_train=np.asarray(y_train, dtype="|S6")
 				y_test=np.asarray(y_test, dtype="|S6")
 				clf = self.metodo
-				clf.fit(x_train, y_train)
-				acuracia[j] += clf.score(x_test, y_test)
+				
+				if x_train.size == 0:
+					acuracia[j] += 0
+				else: 
+					clf.fit(x_train, y_train)
+					acuracia[j] += clf.score(x_test, y_test)
 		
 		acuracia = [i/self.folds for i in acuracia]
 		resultado = list(zip(range(0,self.data.shape[1]), acuracia))
@@ -35,6 +39,6 @@ class classificador(object):
 def classifica_bd(grupos, attr_cluster, porc_trein, folds):
 	result = []
 	for grupo in grupos:
-		classif = classificador(mlp(max_iter=1000), grupo, porc_trein, folds)
+		classif = classificador(mlp(max_iter=2000), grupo, porc_trein, folds)
 		result.append(classif.acuracia)	
 	return result

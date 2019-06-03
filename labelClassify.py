@@ -1,5 +1,3 @@
-
-
 from sklearn.metrics import accuracy_score, precision_score, recall_score
 from sklearn.neural_network import MLPClassifier as mlp
 from sklearn.model_selection import train_test_split
@@ -11,15 +9,15 @@ import numpy as np
 from sklearn.manifold import TSNE
 
 class LABELROTULATOR(object):
-	def __init__ (self, base, perc_test, discre_bins, perc_trei_rot, V, folds_rot):
+	def __init__ (self, base, perc_test, discre_method, discre_bins, perc_trei_rot, V, folds_rot):
 		#Separação de conjuntos de treino e teste 
 		self.X, self.Y, self.X_train, self.X_test, self.y_train, self.y_test = self.preparacao(base, perc_test)
 		
-		#Rotulaçaõ do conjunto de treino e seleção dos elementos pertencentes ao rótulo 
-		#dados -> componente x dos elementos pertencentes ao rótulo
-		#cluster -> componente y dos elementos pertencentes ao rótulo
-		#notDados -> elementos não pertencentes ao rótulo
-		self.rotulos = rotulador.Rotulador(self.X_train, self.y_train, 'EWD', discre_bins, perc_trei_rot, V, folds_rot).rotulo
+		# Rotulaçaõ do conjunto de treino e seleção dos elementos pertencentes ao rótulo 
+		# dados -> componente x dos elementos pertencentes ao rótulo
+		# cluster -> componente y dos elementos pertencentes ao rótulo
+		# notDados -> elementos não pertencentes ao rótulo
+		self.rotulos = rotulador.Rotulador(self.X_train, self.y_train, discre_method, discre_bins, perc_trei_rot, V, folds_rot).rotulo
 		self.dados, self.cluster, self.notDados = self.selectData()
 		
 		#Treinamento da MPL com o dados selecionados
@@ -66,7 +64,7 @@ class LABELROTULATOR(object):
 		return False
 
 	def treinar(self, x, y):
-		clf = mlp()
+		clf = mlp(max_iter=2000)
 		clf.fit(x, y)
 		return clf
 	

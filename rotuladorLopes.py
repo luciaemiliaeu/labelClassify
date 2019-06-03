@@ -18,4 +18,3 @@ class Rotulador(object):
 		
 		self.classificacao = clas(self.frames_discretizados, 'Cluster', per_trein, folds)
 		self.rotulo = rotulador(self.frames_originais, self.frames_discretizados, self.classificacao, V, self.infor)
-		
