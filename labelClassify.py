@@ -1,3 +1,6 @@
+import sys
+sys.path.append("../rotuladorLopes")
+
 from sklearn.metrics import accuracy_score, precision_score, recall_score
 from sklearn.neural_network import MLPClassifier as mlp
 from sklearn.model_selection import train_test_split
@@ -43,14 +46,14 @@ class LABELROTULATOR(object):
 		data.loc[:,'Cluster'] = pd.Series(self.y_train, index=data.index)
 		grouped = data.groupby(['Cluster'])
 
-		n=0
+
 		for n_cluster, values in grouped:
 			for i in values.get_values().tolist():
-				if self.check(i, self.rotulos[n]):
-					newData.append(i)
-				else:
-					notData.append(i)
-			n=+1
+				for j in self.rotulos:
+					if n_cluster == j[0]:
+						if self.check(i, j[1]):
+							newData.append(i)
+						else: notData.append(i)	
 
 		cluster = [i[-1] for i in newData]
 		for i in newData: i.pop(-1)
